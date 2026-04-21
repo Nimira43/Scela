@@ -3,9 +3,14 @@
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { useState } from 'react'
+import RegisterForm from './_components/register-form'
+import LoginForm from './_components/login-form'
+import { useSearchParams } from 'next/navigation'
 
 export default function HomePage() {
   const [openSheet, setOpenSheet] = useState(false)
+  const queryStrings = useSearchParams()
+  const form = queryStrings.get('form')
   
   return (
     <div className='min-h-screen flex flex-col'>
@@ -40,6 +45,12 @@ export default function HomePage() {
           <SheetContent className='min-w-[500px]'>
             <SheetHeader>
               <SheetTitle></SheetTitle>
+              <div className='flex flex-col items-center justify-center h-screen'>
+                {form === 'register'
+                  ? <RegisterForm />
+                  : <LoginForm />
+                }
+              </div>
             </SheetHeader>
           </SheetContent>
         </Sheet>
