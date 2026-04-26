@@ -21,7 +21,7 @@ export default function HomePage() {
         <Button
           onClick={() => setOpenSheet(true)}
         >
-          Login
+          Login / Register
         </Button>
       </nav>
 
