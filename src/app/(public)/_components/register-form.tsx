@@ -1,11 +1,15 @@
 'use client'
 
+import { registerUser } from '@/actions/users'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { z } from 'zod'
 
 const registerFormSchema = z.object({
@@ -15,6 +19,8 @@ const registerFormSchema = z.object({
 })
 
 function RegisterForm() {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -24,7 +30,24 @@ function RegisterForm() {
     }
   })
 
-  function onSubmit(values: z.infer<typeof registerFormSchema>) {}
+  async function onSubmit(values: z.infer<typeof registerFormSchema>) { 
+    try {
+      setLoading(true) 
+      const response = await registerUser(values)
+      
+      if (!response.success) {
+        throw new Error(response.message)
+      }
+
+      toast.success(response.message)
+      form.reset()
+      router.push('/?form-login')
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
   
   return (
     <div className='w-full px-10'>
@@ -80,6 +103,7 @@ function RegisterForm() {
           <Button
             className='w-full'
             type='submit'
+            disabled={loading}
           >
             Register
           </Button>

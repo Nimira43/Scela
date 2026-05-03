@@ -1,21 +1,28 @@
 'use client'
 
+import { loginUser } from '@/actions/users'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { z } from 'zod'
+import Cookies from 'js-cookie'
 
-const loginFormSchema = z.object({
+const loginFormSchema: any = z.object({
   email: z.string().email(),
   password: z.string().min(8),
-  role: z.string().default('user').optional()
+  role: z.string()
 })
 
 function LoginForm() {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -25,7 +32,27 @@ function LoginForm() {
     }
   })
 
-  function onSubmit(values: z.infer<typeof loginFormSchema>) {}
+  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
+    try {
+      setLoading(true) 
+      const response = await loginUser(values)
+      
+      if (!response.success) {
+        throw new Error(response.message)
+      }
+
+      toast.success(response.message)
+      Cookies.set('jwt_token', response.data!)
+      Cookies.set('user_role', values.role)
+      form.reset()
+      router.push(`/${values.role}/dashboard`)
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setLoading(false)
+    }
+
+  }
   
   return (
     <div className='w-full px-10'>
@@ -106,6 +133,7 @@ function LoginForm() {
           <Button
             className='w-full'
             type='submit'
+            disabled={loading}
           >
             Login
           </Button>
