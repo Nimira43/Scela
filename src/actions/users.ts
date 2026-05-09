@@ -4,6 +4,7 @@ import supabase from '@/config/supabase-config'
 import { IUser } from '@/interfaces'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers'
 
 export const registerUser = async (payload: Partial<IUser>) => {
   const {
@@ -98,5 +99,23 @@ export const loginUser = async (payload: Partial<IUser>) => {
     success: true,
     message: 'User logged successfully.',
     data: jwtToken
+  }
+}
+
+export const getLoggedInUser = async () => {
+  try {
+    const cookiesStore = await cookies()
+    const jwtToken = cookiesStore
+      .get('token')?.value
+    const decodedData = jwt
+      .verify(
+        jwtToken || '',
+        process.env.JWT_SECRET!
+    ) 
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Error fetching user data.'
+    }
   }
 }
