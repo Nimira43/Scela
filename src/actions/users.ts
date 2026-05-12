@@ -106,12 +106,37 @@ export const getLoggedInUser = async () => {
   try {
     const cookiesStore = await cookies()
     const jwtToken = cookiesStore
-      .get('token')?.value
-    const decodedData = jwt
+      .get('jwt_token')?.value
+    
+    const decodedData: any = jwt
       .verify(
         jwtToken || '',
         process.env.JWT_SECRET!
     ) 
+
+    const userId = decodedData.userId 
+
+    const { data: users, error } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('id', userId)
+
+    if (users?.length === 0 || error) {
+      return {
+        success: false,
+        message: 'User not found.'
+      }
+    }
+
+    const user = users[0]
+    delete user.password
+
+    return {
+      success: true,
+      message: 'User data fetched succesfully.',
+      data: user
+    }
+    
   } catch (error) {
     return {
       success: false,
