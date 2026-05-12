@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <div className='min-h-screen flex flex-col'>
       <nav className='w-full flex items-center justify-between px-6 py-4 border-b'>
-        <h1 className='text-xl logo-text'>
+        <h1 className='text-xl logo-text text-primary'>
           Scéla
         </h1>
         <Button
@@ -26,12 +26,12 @@ export default function HomePage() {
       </nav>
 
       <div className='flex flex-col items-center justify-center flex-1 px-6 text-center'>
-        <h1 className='text-3xl text-primary tracking-tight sm:text-6xl'>
-          Book Your Next Movie Effortlessly
+        <h1 className='text-3xl text-primary tracking-tight sm:text-6xl logo-text'>
+          Book Faster. Watch Better
         </h1>
 
         <p className='mt-4 max-w-xl text-lg text-muted-foreground'>
-          Discover showtimes, reserve seats, and enjoy a seamless cinema experience — all in one place.
+          Explore what's playing, reserve your seats in seconds, and make every movie night feel seamless.
         </p>
 
         <Button className='mt-6'>

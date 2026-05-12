@@ -6,5 +6,5 @@ export interface IUser {
   role: 'user' | 'admin'
   created_at: string
   updated_at: string
-  is_active: boolean,
+  is_active: boolean
 }
