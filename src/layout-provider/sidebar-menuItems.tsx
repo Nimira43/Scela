@@ -1,7 +1,7 @@
 import LogoutButton from '@/components/functional/logout-btn'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { IUsersStore, useUsersStore } from '@/store/users-store'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { RiDashboardLine, RiMovie2Line, RiTicketLine, RiUser6Line } from 'react-icons/ri'
 import { TbTheater, TbUserScreen, TbUsersGroup } from 'react-icons/tb'
 
@@ -15,6 +15,7 @@ function SidebarMenuItems({
   
   const { user } = useUsersStore() as IUsersStore
   const pathname = usePathname()
+  const router = useRouter()
   const iconSize = 14
 
   const userMenuItems: any[] = [
@@ -96,6 +97,10 @@ function SidebarMenuItems({
                   ? 'text-primary bg-grey-4'
                   : ''
               }`}
+              onClick={() => {
+                setOpenSidebar(false)
+                router.push(item.path)
+              }}
             >
               {item.icon}
               <h1 className='text-sm font-medium'>
