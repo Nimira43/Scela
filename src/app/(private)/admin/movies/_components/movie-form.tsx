@@ -91,6 +91,22 @@ function MovieForm({ formType }: MovieFormProps) {
             <div className='grid grid-cols-3 gap-5'>
               <FormField
                 control={form.control}
+                name='release_date'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Release Date</FormLabel>
+                    <FormControl>
+                      <Input
+                        type='date'                      
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name='genre'
                 render={({ field }) => (
                   <FormItem>
@@ -110,23 +126,48 @@ function MovieForm({ formType }: MovieFormProps) {
                             value={genre}
                             key={genre}
                           >
-                            {genre}
+                            {genre.charAt(0).toUpperCase() + genre.slice(1)}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </FormItem>
                 )}
+              />    
+              <FormField
+                control={form.control}
+                name='duration'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Duration</FormLabel>
+                    <FormControl>
+                      <Input                     
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-
-            <Button
-              className='w-full'
-              type='submit'
-              disabled={loading}
-            >
-              Submit
-            </Button>
+              
+            <div className='flex justify-end gap-5'>
+              <Button
+                onClick={() => router.push('/admin/movies')}
+                className='w-full mt-5'
+                type='button'
+                variant='outline'
+              >
+                Cancel
+              </Button>
+              <Button
+                className='w-full mt-5'
+                type='submit'
+                disabled={loading}
+              >
+                {formType === 'add' ? 'Add Movie' : 'Update Movie' }
+              </Button>
+            </div>
           </form>      
         </Form>
       </div>
