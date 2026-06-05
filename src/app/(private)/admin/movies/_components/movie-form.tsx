@@ -27,6 +27,7 @@ const movieFormSchema: any = z.object({
 })
 
 function MovieForm({ formType }: MovieFormProps) {
+  const [selectedPosterFile, setSelectedPosterFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
@@ -150,7 +151,38 @@ function MovieForm({ formType }: MovieFormProps) {
                 )}
               />
             </div>
+
+            <div className='w-max'>
+              <label
+                className='block my-2 text-sm font-medium'
+                htmlFor='file selection'
+              >
+                Select a Poster
+              </label>
+              <input
+                type='file'
+                accept='image/*'
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+
+                  if (file) {
+                    setSelectedPosterFile(file)
+                    form.setValue('poster_url', URL.createObjectURL(file))
+                  }
+                }}
+              />
+            </div>
               
+            {selectedPosterFile && (
+              <div className='mt-3'>
+                <img
+                  src={URL.createObjectURL(selectedPosterFile)}
+                  alt='Selected Poster'
+                  className='w-32 h-32 object-contained rounded shadow-md'
+                />
+              </div>
+            )}
+
             <div className='flex justify-end gap-5'>
               <Button
                 onClick={() => router.push('/admin/movies')}
