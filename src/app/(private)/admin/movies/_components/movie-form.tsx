@@ -6,12 +6,14 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { movieGenres } from '@/constants'
+import { uploadFileAndGetUrl } from '@/helpers/file-upload'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
+import { addMovie } from '@/actions/movies'
 
 interface MovieFormProps {
   formType: 'add' | 'edit'
@@ -46,6 +48,28 @@ function MovieForm({ formType }: MovieFormProps) {
   async function onSubmit(values: z.infer<typeof movieFormSchema>) {
     try {
       setLoading(true) 
+      const payload = {...values}
+
+      if (selectedPosterFile) {
+        const uploadResponse = await uploadFileAndGetUrl(selectedPosterFile)
+
+        if (!uploadResponse.success) {
+          throw new Error(uploadResponse.message)
+        }
+        payload.poster_url = uploadResponse.data
+      }
+
+      let response = null
+
+      if (formType = 'add') {
+        response = await addMovie(payload)
+      }
+
+      if (!response?.success) {
+        throw new Error(response?.message || 'Failed to add movie.')
+      }
+
+      toast.success(response.message || 'Movie added successfully.')
       form.reset()
       router.push(`/admin/movies`)
     } catch (error: any) {
