@@ -17,6 +17,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import InfoMessage from '@/components/functional/info-message'
+import Spinner from '@/components/functional/spinner'
 
 function AdminMoviesPage() {
   const [movies, setMovies] = useState<IMovie[]>([])
@@ -64,16 +66,11 @@ function AdminMoviesPage() {
           </Button>
         </div>
 
-        {loading && (
-          <h1 className='text-center'>
-            Loading...
-          </h1>
-        )}
+        {loading && <Spinner />}
 
         {!loading && movies.length === 0 && (
-          <h1 className='text-center'>
-            No movies found.
-          </h1>
+          <InfoMessage
+            message='No movies found' />
         )}
 
         {!loading && movies.length > 0 && (
