@@ -19,10 +19,12 @@ import {
 } from '@/components/ui/table'
 import InfoMessage from '@/components/functional/info-message'
 import Spinner from '@/components/functional/spinner'
+import { useRouter } from 'next/navigation'
 
 function AdminMoviesPage() {
   const [movies, setMovies] = useState<IMovie[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const router = useRouter()
 
   const fetchMovies = async () => {
     try {
@@ -114,6 +116,7 @@ function AdminMoviesPage() {
                       <Button
                         variant='outline'
                         size='icon'
+                        onClick={() => router.push(`/admin/movies/edit/${movie.id}`)}
                       >
                         <CiEdit size={15} />
                       </Button>

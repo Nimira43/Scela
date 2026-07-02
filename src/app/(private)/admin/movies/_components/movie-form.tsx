@@ -14,9 +14,11 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
 import { addMovie } from '@/actions/movies'
+import { IMovie } from '@/interfaces'
 
 interface MovieFormProps {
   formType: 'add' | 'edit'
+  initialValues ? : Partial<IMovie>
 }
 
 const movieFormSchema: any = z.object({
@@ -28,7 +30,9 @@ const movieFormSchema: any = z.object({
   poster_url: z.string().min(1, 'Poster is required.'),
 })
 
-function MovieForm({ formType }: MovieFormProps) {
+function MovieForm({
+  formType, initialValues
+}: MovieFormProps) {
   const [selectedPosterFile, setSelectedPosterFile] = useState<File | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -36,12 +40,12 @@ function MovieForm({ formType }: MovieFormProps) {
   const form = useForm<z.infer<typeof movieFormSchema>>({
     resolver: zodResolver(movieFormSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      release_date: '',
-      genre: '',
-      duration: '',
-      poster_url: ''
+      name: initialValues?.name || '',
+      description: initialValues?.description || '',
+      release_date: initialValues?.release_date || '',
+      genre: initialValues?.genre || '',
+      duration: initialValues?.duration || '',
+      poster_url: initialValues?.poster_url || ''
     }
   })
 
