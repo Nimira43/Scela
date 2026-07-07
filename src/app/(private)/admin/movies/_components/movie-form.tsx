@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
-import { addMovie } from '@/actions/movies'
+import { addMovie, updateMovie } from '@/actions/movies'
 import { IMovie } from '@/interfaces'
 
 interface MovieFormProps {
@@ -65,8 +65,13 @@ function MovieForm({
 
       let response = null
 
-      if (formType = 'add') {
+      if (formType === 'add') {
         response = await addMovie(payload)
+      } else if (formType === 'edit') {
+        response = await updateMovie(
+          initialValues?.id || '',
+          payload
+        )
       }
 
       if (!response?.success) {
@@ -201,10 +206,14 @@ function MovieForm({
               />
             </div>
               
-            {selectedPosterFile && (
+            {(selectedPosterFile || form.getValues().poster_url) && (
               <div className='mt-3'>
                 <img
-                  src={URL.createObjectURL(selectedPosterFile)}
+                  src={
+                    selectedPosterFile
+                      ? URL.createObjectURL(selectedPosterFile!)
+                      : form.getValues().poster_url
+                  }
                   alt='Selected Poster'
                   className='w-32 h-32 object-contained rounded shadow-md'
                 />
