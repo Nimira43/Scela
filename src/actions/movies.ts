@@ -89,6 +89,7 @@ export const getAllMovies = async () => {
   const { data, error } = await supabase
     .from('movies')
     .select('*')
+    .order('created_at', { ascending: false })
   
   if (error) {
     return {

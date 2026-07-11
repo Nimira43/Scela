@@ -5,7 +5,7 @@ import PageTitle from '@/components/ui/page-title'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { IMovie } from '@/interfaces'
-import { getAllMovies } from '@/actions/movies'
+import { deleteMovie, getAllMovies } from '@/actions/movies'
 import toast from 'react-hot-toast'
 import { CiEdit } from 'react-icons/ci'
 import { AiOutlineDelete } from 'react-icons/ai'
@@ -36,6 +36,25 @@ function AdminMoviesPage() {
       }
 
       setMovies(response.data)
+    } catch (error: any) {
+      toast.error(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDeleteMovie = async (movieId: string) => { 
+    try {
+      setLoading(true)
+
+      const response = await deleteMovie(movieId)
+
+      if (!response.success) {
+        throw new Error(response.message)
+      }
+
+      toast.success('Movie deleted successfully.')
+      fetchMovies()
     } catch (error: any) {
       toast.error(error.message)
     } finally {
@@ -123,6 +142,7 @@ function AdminMoviesPage() {
                       <Button
                         variant='outline'
                         size='icon'
+                        onClick={() => handleDeleteMovie(movie.id)}
                       >
                         <AiOutlineDelete size={15} />
                       </Button>
