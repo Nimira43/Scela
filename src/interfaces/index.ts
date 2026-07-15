@@ -21,3 +21,13 @@ export interface IMovie {
   created_at: string
   updated_at: string
 }
+
+export interface ITheatre {
+  id: string
+  name: string
+  location: string
+  capacity: number
+  created_at: string
+  updated_at: string
+  is_active: boolean
+}
