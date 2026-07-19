@@ -115,8 +115,7 @@ function MovieForm({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field}>
-                    </Textarea>
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
