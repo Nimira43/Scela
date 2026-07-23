@@ -121,69 +121,66 @@ function MovieForm({
                 </FormItem>
               )}
             />
-            <div className='grid grid-cols-3 gap-5'>
-              <FormField
-                control={form.control}
-                name='release_date'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Release Date</FormLabel>
+            <FormField
+              control={form.control}
+              name='genre'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Genre</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
-                      <Input
-                        type='date'                      
-                        {...field}
-                      />
+                      <SelectTrigger>
+                        <SelectValue placeholder='Select Movie Genre' />
+                      </SelectTrigger>
                     </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='genre'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Genre</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Select Movie Genre' />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {movieGenres.map((genre) => (
-                          <SelectItem
-                            value={genre}
-                            key={genre}
-                          >
-                            {genre.charAt(0).toUpperCase() + genre.slice(1)}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />    
-              <FormField
-                control={form.control}
-                name='duration'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Duration</FormLabel>
-                    <FormControl>
-                      <Input                     
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
+                    <SelectContent>
+                      {movieGenres.map((genre) => (
+                        <SelectItem
+                          value={genre}
+                          key={genre}
+                        >
+                          {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />    
+            <FormField
+              control={form.control}
+              name='release_date'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Release Date</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='date'                      
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />        
+            <FormField
+              control={form.control}
+              name='duration'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Duration</FormLabel>
+                  <FormControl>
+                    <Input                     
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <div className='w-max'>
               <label
                 className='block my-2 text-sm font-medium'
