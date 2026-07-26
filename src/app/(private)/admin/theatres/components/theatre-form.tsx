@@ -61,6 +61,7 @@ function TheatreForm({
       }
 
       toast.success(response.message || 'Theatre added successfully.')
+      reloadData()
       form.reset()
       setOpenTheatreForm(false)
     } catch (error: any) {
@@ -86,7 +87,7 @@ function TheatreForm({
           <DialogDescription>
             {formType === 'add'
               ? 'Add new theatre to database'
-              : 'Edit the details of for this theatre'
+              : 'Edit the details for this theatre'
             }
           </DialogDescription>
         </DialogHeader>
