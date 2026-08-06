@@ -24,7 +24,7 @@ interface MovieFormProps {
 const movieFormSchema: any = z.object({
   name: z.string().min(1, 'Name is required.'),
   description: z.string().min(1, 'Name is required.'),
-  release_date: z.string().min(1, 'Release dae is required.'),
+  release_date: z.string().min(1, 'Release date is required.'),
   genre: z.string().min(1, 'Genre is required.'),
   duration: z.string().min(1, 'Duration is required.'),
   poster_url: z.string().min(1, 'Poster is required.'),

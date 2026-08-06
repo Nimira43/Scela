@@ -5,7 +5,7 @@ function EditShowPage() {
   return (
     <div>
       <PageTitle title='Edit Show' />
-      {/* <ShowForm formType='edit' /> */}
+      <ShowForm formType='edit' />
     </div>
   )
 }
