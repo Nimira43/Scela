@@ -124,7 +124,8 @@ function ShowForm({
                   <FormLabel>Movie</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value.toString()}
+                    value={field.value.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -153,7 +154,8 @@ function ShowForm({
                   <FormLabel>Theatre</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={field.value.toString()}
+                    value={field.value.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>

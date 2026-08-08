@@ -38,12 +38,12 @@ export interface IShow {
   theatre_id: string
   date: string
   time: string
-  ticket_price: string
-  booked_seats: string[]
+  ticket_price: number
+  booked_seats: number[]
   available_seats_count: number
   created_at: string
   updated_at: string
   is_active: boolean
-  movie?: IMovie
-  theatre?: ITheatre
+  movie: IMovie
+  theatre: ITheatre
 }

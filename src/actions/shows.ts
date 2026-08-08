@@ -60,7 +60,7 @@ export const deleteShow = async (id: string) => {
 export const getAllShows = async () => {
   const { data, error } = await supabase
   .from('shows')
-  .select('*')
+  .select('*, movie: movies(*), theatre: theatres(*)')
   .order('created_at', { ascending: false })
   
   if (error) {
