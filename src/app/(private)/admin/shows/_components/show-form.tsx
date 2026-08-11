@@ -64,8 +64,8 @@ function ShowForm({
   const form = useForm<z.infer<typeof showFormSchema>>({
     resolver: zodResolver(showFormSchema),
     defaultValues: {
-      movie_id: initialValues?.movie_id || '',
-      theatre_id: initialValues?.theatre_id || '',
+      movie_id: initialValues?.movie_id?.toString() || '',
+      theatre_id: initialValues?.theatre_id?.toString() || '',
       time: initialValues?.time || '',
       date: initialValues?.date || '',
       ticket_price: initialValues?.ticket_price || ''

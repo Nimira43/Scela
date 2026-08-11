@@ -84,7 +84,10 @@ export const getShowById = async (id: string) => {
   .eq('id', id)
   
   if (error) {
-    throw new Error(error.message)
+    return {
+      success: false,
+      message: error.message
+    }
   }
   
   if (data.length === 0) {

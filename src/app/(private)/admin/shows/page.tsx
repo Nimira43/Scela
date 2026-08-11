@@ -21,6 +21,7 @@ import InfoMessage from '@/components/functional/info-message'
 import Spinner from '@/components/functional/spinner'
 import { useRouter } from 'next/navigation'
 import { formatDate, formatTime } from '@/helpers/date-time-formats'
+import { LiaClone } from 'react-icons/lia'
 
 function AdminShowsPage() {
   const [shows, setShows] = useState<IShow[]>([])
@@ -138,6 +139,13 @@ function AdminShowsPage() {
                         onClick={() => router.push(`/admin/shows/edit/${show.id}`)}
                       >
                         <CiEdit size={15} />
+                      </Button>
+                      <Button
+                        variant='outline'
+                        size='icon'
+                        onClick={() => router.push(`/admin/shows/add/?showId=${show.id}`)}
+                      >
+                        <LiaClone size={15} />
                       </Button>
                       <Button
                         variant='outline'
