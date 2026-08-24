@@ -24,7 +24,7 @@ async function UserMovies() {
   return (
     <div className="w-full flex justify-center mt-5">
       <div className="w-full max-w-5xl">
-      <PageTitle title='Latest Movies' />
+        <PageTitle title='Latest Movies' />
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5'>
           {movies.map((movie: IMovie) => (
             <MovieTile
