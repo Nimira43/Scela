@@ -1,9 +1,17 @@
+'use client'
+
 import { formatDate } from '@/helpers/date-time-formats'
 import { IMovie } from '@/interfaces'
+import { useRouter } from 'next/navigation'
 
 function MovieTile({ movie }: { movie: IMovie }) {
+  const router = useRouter()
+
   return (
-    <div className='border border-grey-4 rounded shadow-md p-3 hover:border-primary transitioning'>
+    <div
+      className='border border-grey-4 rounded shadow-md p-3 hover:border-primary transitioning'
+      onClick={() => router.push(`/user/movies/${movie.id}`)}
+    >
       <img
         className='w-full h-72 object-cover rounded p-3'
         src={movie.poster_url || 'https://via.placeholder.com/150'}

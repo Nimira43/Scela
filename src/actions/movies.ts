@@ -113,7 +113,9 @@ export const getActiveMovies = async (filters: any) => {
       ascending: false
     })
   
-  if (filters) { }
+  if (filters.search) { 
+    qry = qry.ilike('name', `%${filters.search}%`)
+  }
   
   const { data, error } = await qry
 
