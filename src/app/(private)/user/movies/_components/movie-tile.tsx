@@ -9,7 +9,7 @@ function MovieTile({ movie }: { movie: IMovie }) {
 
   return (
     <div
-      className='border border-grey-4 rounded shadow-md p-3 hover:border-primary transitioning'
+      className='border border-grey-4 rounded shadow-md p-3 hover:border-primary transitioning cursor-pointer'
       onClick={() => router.push(`/user/movies/${movie.id}`)}
     >
       <img
